@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Audio & Música</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF3D00;
+            --secondary: #00E5FF;
+            --dark: #0A0A0A;
+            --darker: #000000;
+            --gray: #1A1A1A;
+            --light-gray: #2A2A2A;
+            --text: #E0E0E0;
+            --accent: #FFD600;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 61, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 214, 0, 0.08) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 61, 0, 0.2);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-text h1 .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-text .pitch {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: var(--text);
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 61, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #FF6E40;
+            box-shadow: 0 0 30px rgba(255, 61, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--darker);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .audio-bars {
+            display: flex;
+            gap: 8px;
+            height: 100%;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .bar {
+            width: 12px;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 6px;
+            animation: audioWave 1.5s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 61, 0, 0.5);
+        }
+
+        .bar:nth-child(1) { animation-delay: 0s; height: 30%; }
+        .bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
+        .bar:nth-child(3) { animation-delay: 0.2s; height: 45%; }
+        .bar:nth-child(4) { animation-delay: 0.3s; height: 80%; }
+        .bar:nth-child(5) { animation-delay: 0.4s; height: 55%; }
+        .bar:nth-child(6) { animation-delay: 0.5s; height: 90%; }
+        .bar:nth-child(7) { animation-delay: 0.6s; height: 70%; }
+        .bar:nth-child(8) { animation-delay: 0.7s; height: 40%; }
+        .bar:nth-child(9) { animation-delay: 0.8s; height: 75%; }
+        .bar:nth-child(10) { animation-delay: 0.9s; height: 50%; }
+
+        @keyframes audioWave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--gray);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 61, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .service-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            margin-top: 3rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 61, 0, 0.6);
+        }
+
+        .timeline-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .location {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .skill-category h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.3rem;
+            background: var(--light-gray);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Gallery Section */
+        #galeria {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            height: 280px;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 61, 0, 0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s, filter 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.55);
+        }
+
+        .gallery-info {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover .gallery-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .gallery-info p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        #contacto {
+            background: var(--gray);
+            padding: 10rem 5%;
+            border-radius: 16px;
+            margin: 5rem auto;
+            text-align: center;
+            width: min(90%, 1100px);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: var(--dark);
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 61, 0, 0.3);
+        }
+
+        .contact-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--darker);
+            border-top: 1px solid var(--light-gray);
+        }
+
+        footer p {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            #contacto {
+                padding: 6rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">“Capture the sound, shape the music.”</div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    <span class="highlight">Hirán Montaño</span><br>
+                </h1>
+                <p class="subtitle">MÚSICO | INGENIERO DE AUDIO | TÉCNICO DE STAGE</p>
+                <p class="pitch">
+                  Músico e ingeniero de audio con base en Cali, Colombia, enfocado en integrar la interpretación musical con la excelencia técnica en producción de audio. Mi enfoque combina la sensibilidad artística con la precisión técnica del ingeniero, ofreciendo soluciones integrales para proyectos musicales de cualquier envergadura.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contacto" class="btn btn-primary">Trabajemos Juntos</a>
+                    <a href="#experiencia" class="btn btn-secondary">Ver Experiencia</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="audio-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios">
+        <h2 class="section-title">SERVICIOS</h2>
+        <p class="section-subtitle">// Soluciones completas de audio</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Instrumentista</h3>
+                <p>Percusión profesional para tus proyectos musicales</p>
+                <ul>
+                    <li>Sesiones de grabación</li>
+                    <li>Presentaciones en vivo</li>
+                    <li>Diversos géneros musicales</li>
+                    <li>Arreglos personalizados</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Ingeniería de Audio</h3>
+                <p>Producción de audio de alta calidad</p>
+                <ul>
+                    <li>Mezcla profesional</li>
+                    <li>Mastering</li>
+                    <li>Grabación en estudio</li>
+                    <li>Post-producción</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Producción en Vivo</h3>
+                <p>Gestión técnica completa de eventos</p>
+                <ul>
+                    <li>FOH (Front of House)</li>
+                    <li>Monitores de escenario</li>
+                    <li>Montaje y desmontaje</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Soporte Técnico</h3>
+                <p>Logística y operación de equipos</p>
+                <ul>
+                    <li>Instalación de sistemas de sonido</li>
+                    <li>Mantenimiento de equipos</li>
+                    <li>Logística de eventos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experiencia">
+        <h2 class="section-title">EXPERIENCIA</h2>
+        <p class="section-subtitle">// Proyectos y colaboraciones destacadas</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Deportivo Cali</h3>
+                <p class="location">Sonido en Estadio</p>
+                <p>Operación técnica de sonido en eventos deportivos de alto perfil, garantizando calidad acústica en espacios masivos.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Mercado Musical del Pacífico</h3>
+                <p class="location">Stage & Audio</p>
+                <p>Gestión técnica y operación de sonido en uno de los eventos musicales más importantes de la región Pacífica.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Sevijazz</h3>
+                <p class="location">Stage</p>
+                <p>Soporte técnico y operación de escenario en festival de jazz, trabajando con artistas nacionales e internacionales.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Universidad Icesi</h3>
+                <p class="location">Estudiante & Ing Audio</p>
+                <p>FOH e ingeniería de sonido en eventos universitarios. Formación continua en producción de audio y tecnologías musicales.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Eventos Diversos</h3>
+                <p class="location">Logística & Stage</p>
+                <p>Coordinación logística y operación técnica en múltiples eventos corporativos, culturales y musicales en Cali.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="habilidades">
+        <h2 class="section-title">HABILIDADES</h2>
+        <p class="section-subtitle">// Herramientas y conocimientos técnicos</p>
+        
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>DAWs & Software</h3>
+                <div>
+                    <span class="skill-tag">Pro Tools</span>
+                    <span class="skill-tag">Logic Pro</span>
+                    <span class="skill-tag">Ableton Live</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Consolas & Hardware</h3>
+                <div>
+                    <span class="skill-tag">Consolas Digitales</span>
+                    <span class="skill-tag">Consolas Análogas</span>
+                    <span class="skill-tag">Yamaha CL/QL</span>
+                    <span class="skill-tag">Behringer X32</span>
+                    <span class="skill-tag">MIDAS X32</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Producción en Vivo</h3>
+                <div>
+                    <span class="skill-tag">FOH Mixing</span>
+                    <span class="skill-tag">Monitor Systems</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Conocimientos Técnicos</h3>
+                <div>
+                    <span class="skill-tag">Acústica</span>
+                    <span class="skill-tag">Microfonía</span>
+                    <span class="skill-tag">Mezcla</span>
+                    <span class="skill-tag">Mastering</span>
+                    <span class="skill-tag">Procesamiento de señal</span>
+                    <span class="skill-tag">Calibración de sistemas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeria">
+        <h2 class="section-title">GALERÍA</h2>
+        <p class="section-subtitle">// Eventos en vivo, stage y producción</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/70/93/63/709363ce2bcd68260a5b524833bff627.jpg" alt="Audio en vivo">
+                <div class="gallery-info">
+                    <h3>Audio en vivo</h3>
+                    <p>FOH / Monitores / Stage</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/e1/3a/d6/e13ad6b795e4608853b742388d075b51.jpg" alt="Escenario musical">
+                <div class="gallery-info">
+                    <h3>Escenario</h3>
+                    <p>Eventos musicales</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/64/96/d9/6496d95060953832b0d8d0bc30a97634.jpg" alt="Consola de sonido">
+                <div class="gallery-info">
+                    <h3>Consolas</h3>
+                    <p>Mezcla profesional</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/50/24/67/50246761e1d9b3c2775deaf4e629e088.jpg" alt="Percusión en vivo">
+                <div class="gallery-info">
+                    <h3>Percusión</h3>
+                    <p>Sesiones y presentaciones</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/aa/2d/df/aa2ddf28f5791a97abcc98eb146338d0.jpg">
+                <div class="gallery-info">
+                    <h3>Montaje</h3>
+                    <p>Logística técnica</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.pinimg.com/736x/a5/b6/05/a5b605458a4730c61d28c0c9b9d6cb35.jpg" alt="Producción musical">
+                <div class="gallery-info">
+                    <h3>Producción</h3>
+                    <p>Grabación / Mezcla / Mastering</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto">
+        <h2 class="section-title">CONTACTO</h2>
+        <p class="section-subtitle">// Hablemos de tu proyecto</p>
+        
+        <div class="contact-grid">
+            <a href="mailto:hiranmontano27@gmail.com" class="contact-item">
+                <div class="icon">📧</div>
+                <h3>Email</h3>
+                <p>hiranmontano27@gmail.com</p>
+            </a>
+
+            <a href="https://wa.me/573157734284" target="_blank" class="contact-item">
+                <div class="icon">📱</div>
+                <h3>WhatsApp</h3>
+                <p>+57 315 7734284</p>
+            </a>
+
+            <a href="https://instagram.com/hiranmontano_12" target="_blank" class="contact-item">
+                <div class="icon">📸</div>
+                <h3>Instagram</h3>
+                <p>@hiranmontano_12</p>
+            </a>
+
+            <div class="contact-item">
+                <div class="icon">📍</div>
+                <h3>Ubicación</h3>
+                <p>Cali, Colombia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 - Todos los derechos reservados | Diseñado para destacar en audio</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate sections on scroll
+        document.querySelectorAll('.service-card, .timeline-item, .skill-category, .gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
